@@ -26,3 +26,7 @@ logs
 # Python virtual env
 venv
 checked_links.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage

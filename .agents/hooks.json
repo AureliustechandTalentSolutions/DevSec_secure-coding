@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content|write_to_file",
+        "command": "bash -c '\"$HOME/.venv/bin/bandit\" -q -lll -r . -x ./.venv,./.local,./.cache,./.npm,./.gemini,./reference_standards,./workspace_resources,./node_modules,./.git || exit 1; FACTORY_VAL=$(find . \\( -name .venv -o -name .local -o -name .cache -o -name .npm -o -name .gemini -o -name reference_standards -o -name workspace_resources -o -name node_modules -o -name .git \\) -prune -o -name validate_registers.py -print | head -n 1); if [ -n \"$FACTORY_VAL\" ]; then \"$HOME/.venv/bin/python\" \"$FACTORY_VAL\" || exit 1; fi; PIM_VAL=$(find . \\( -name .venv -o -name .local -o -name .cache -o -name .npm -o -name .gemini -o -name reference_standards -o -name workspace_resources -o -name node_modules -o -name .git \\) -prune -o -name qa_verify.js -print | head -n 1); if [ -n \"$PIM_VAL\" ]; then node \"$PIM_VAL\" || exit 1; fi'"
+      }
+    ]
+  }
+}
