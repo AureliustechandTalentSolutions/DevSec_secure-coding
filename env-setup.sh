@@ -136,7 +136,7 @@ fi
 cat << 'EOF' > "$HOME/.local/bin/fret-cli"
 #!/usr/bin/env bash
 set -euo pipefail
-mkdir -p "$HOME/Documents"
+mkdir -p "$HOME/Documents" 2>/dev/null || true
 export JAVA_HOME="$HOME/.local/opt/jdk-21"
 export PATH="$HOME/.local/share/fnm:$HOME/.local/opt/jdk-21/bin:$HOME/.local/opt/formal-solvers/bin:$HOME/.local/opt/fret/tools/LTLSIM/ltlsim-core/simulator:$HOME/.local/bin:$PATH"
 eval "$(fnm env)"
@@ -150,6 +150,9 @@ echo "=== [5/8] Cloning CMU SEI Secure Coding Standards & Unpacking Mounted Arch
 if [ ! -d "$HOME/reference_standards/secure-coding-standards/.git" ]; then
   rm -rf "$HOME/reference_standards/secure-coding-standards"
   git clone --depth 1 https://github.com/cmu-sei/secure-coding-standards.git "$HOME/reference_standards/secure-coding-standards" || true
+fi
+if [ -d "$HOME/reference_standards/secure-coding-standards" ]; then
+  ln -sfn "$HOME/reference_standards/secure-coding-standards" "$HOME/workspace_resources/secure-coding-standards"
 fi
 if [ ! -d "$HOME/reference_standards/sottlmarek-devsecops/.git" ]; then
   rm -rf "$HOME/reference_standards/sottlmarek-devsecops"
